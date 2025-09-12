@@ -1,0 +1,67 @@
+<?php 
+
+// session_start();
+
+use App\Controllers\AnnonceController;
+use App\Controllers\HomeController;
+use App\Controllers\UserController;
+
+$url = $_GET['url'] ?? 'home';
+$arrayURL = explode('/', $url);
+$page = $arrayURL[0];
+$id = $arrayURL[1] ?? null;
+
+switch ($page) {
+
+    case 'home':
+
+        $controller = new HomeController; 
+        $controller->index();
+        break;
+
+    case 'register':
+
+        $controller = new UserController; 
+        $controller->register();
+        break;
+
+    case 'login':
+
+        $controller = new UserController; 
+        $controller->login();   
+        break;
+
+    case 'profil':
+
+        $controller = new UserController; 
+        $controller->profil();
+        break;
+
+    case 'logout':
+
+        $controller = new UserController; 
+        $controller->logout();
+        break;
+
+    case 'annonces':
+
+        $controller = new AnnonceController; 
+        $controller->index();
+        break;
+
+    case 'create':
+
+        $controller = new AnnonceController; 
+        $controller->create();
+        break;
+
+    case 'details':
+
+        $controller = new AnnonceController; 
+        $controller->show($id);
+        break;
+    
+    default:
+        require_once __DIR__ . '/../src/Views/page404.php';
+        break;
+}
