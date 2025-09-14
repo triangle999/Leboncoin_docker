@@ -10,7 +10,7 @@ use PDOException;
 class User {
 
     public function createUser( string $email, string $password, string $pseudo): bool {
-
+        error_log("createUser appelé");
         try {
             $pdo = Database::getConnection();
 
@@ -25,15 +25,15 @@ class User {
             $stmt = $pdo->prepare($sql);
 
             $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-            $stmt->bindValue(':password',password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR).
+            $stmt->bindValue(':password',password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
             $stmt->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
 
             // on exécute la requête
             return $stmt->execute();
 
         } catch (PDOException $e) {
-            echo 'Error : ' . $e->getMessage();
-            return false;
+            return 'Error : ' . $e->getMessage();
+            // return false;
         }
     }
 
@@ -68,8 +68,8 @@ class User {
             
 
         } catch (PDOException $e) {
-            echo 'Error : ' . $e->getMessage();
-            return false;
+            return 'Error : ' . $e->getMessage();
+            // return false;
         }
     }
 
@@ -104,8 +104,8 @@ class User {
             
 
         } catch (PDOException $e) {
-            echo 'Error : ' . $e->getMessage();
-            return false;
+            return 'Error : ' . $e->getMessage();
+            // return false;
         }
     }
 

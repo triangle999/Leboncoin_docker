@@ -52,7 +52,7 @@
                     
                     <div class="d-flex gap-5 justify-content-center">
                         <div>
-                            <a href="index.php?url=home" class="color1 a-none">Retour</a>
+                            <a href="index.php?url=login" class="color1 a-none">Déjà inscrit ?</a>
                         </div>
                         <div>
                             <button type="submit" class="color1 a-none">S'inscrire</button> 

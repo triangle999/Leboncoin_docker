@@ -21,7 +21,7 @@ switch ($page) {
 
     case 'register':
 
-        $controller = new UserController; 
+        $controller = new UserController;
         $controller->register();
         break;
 

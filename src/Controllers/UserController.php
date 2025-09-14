@@ -77,10 +77,13 @@ class UserController {
                     $errors['cgu'] = 'Veuillez valider les CGU';
             }
 
-            // if(empty($errors)){
-            //     header("Location: register.php");
-            //     exit;
-            // }
+            if(empty($errors)){
+                // header("Location: register.php");
+                // exit;
+                // on appel la fonction createUser
+                $newUser = new User;
+                $newUser->createUser($_POST['email'], $_POST['password'], $_POST['pseudo']);
+            }
         }
         require_once __DIR__ . '/../Views/register.php';
     }
