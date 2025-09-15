@@ -11,6 +11,7 @@ class AnnonceController {
 
     public function create(): void {
         // vue create.php + upload + insertion
+        // move_uploaded_file()
     }
     
     public function show(?int $id): void {

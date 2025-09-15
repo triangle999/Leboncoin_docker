@@ -78,61 +78,81 @@ class UserController {
             }
 
             if(empty($errors)){
-                // header("Location: register.php");
                 // exit;
                 // on appel la fonction createUser
                 $newUser = new User;
                 $newUser->createUser($_POST['email'], $_POST['password'], $_POST['pseudo']);
+
+                header("Location: index.php?url=welcome");
             }
         }
         require_once __DIR__ . '/../Views/register.php';
     }
 
     public function login(): void {
-        require_once __DIR__ . '/../Views/login.php';
-
-        // vue login.php + traitement POST
-
-                // Création de regeX
+     
+        // Création de regeX
         $regName = "/^[a-zA-Zàèé\-]+$/";
 
         // Je ne lance qu'uniquement lorsqu'il y a un formulaire validée via la méthod POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+            
             // je créé un tableau d'erreurs vide car pas d'erreur
-            $errors = [];
-
-            if (isset($_POST["pseudo"])) {
-                // on va vérifier si c'est vide
-                if (empty($_POST["pseudo"])) {
-                    // si c'est vide, je créé une erreur dans mon tableau
-                    $errors['pseudo'] = 'Pseudonyme obligatoire';
-                } else if (!preg_match($regName, $_POST["lastname"])) {
-                    // si ça ne respecte pas la regeX
-                    $errors['lastname'] = 'Caractère(s) non autorisé(s)';
-                }
-            }
+            // $errors = [];
+            $_SESSION['errors'] = [];
 
             if (isset($_POST["email"])) {
                 // on va vérifier si c'est vide
                 if (empty($_POST["email"])) {
                     // si c'est vide, je créé une erreur dans mon tableau
-                    $errors['email'] = 'Mail obligatoire';
+                    $_SESSION['errors']['email'] = 'Mail obligatoire';
                 } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                     // si mail non valide, on créé une erreur
-                    $errors['email'] = 'Mail non valide';
+                    $_SESSION['errors']['email'] = 'Mail non valide';
+                }
+            }
+
+            if (isset($_POST["password"])) {
+                // on va vérifier si c'est vide
+                if (empty($_POST["password"])) {
+                    // si c'est vide, je créé une erreur dans mon tableau
+                    $_SESSION['errors']['password'] = 'Veuillez saisir votre mot de passe';
+                } else if (strlen($_POST['password']) < 8) {
+                    // si mot de passe inf à 8 alors on créé une erreur
+                    $_SESSION['errors']['password'] = 'Le mot de passe est inférieur au minimum requis'; 
+                } else if (!preg_match($regName, $_POST["password"])) {
+                    // si ça ne respecte pas la regeX
+                    $_SESSION['errors']['password'] = 'Caractère(s) non autorisé(s)';
                 }
             }
 
             if(empty($errors)){
-                // header("Location: recap.php");
-                // exit;
-            }
+                
+                if (User::checkMail($_POST["email"])) {
+
+                    $userInfo = new User();
+                    $userInfo->findByEmail($_POST["email"]);
+
+                    // on vérifie si le mot de passe est bien lié à l'adresse mail 
+                        if (password_verify($_POST["password"], $userInfo->password)) {
+
+                            $_SESSION['user']['id'] = $userInfo->id;
+                            $_SESSION['user']['email'] = $userInfo->email;
+                            $_SESSION['user']['pseudo'] = $userInfo->pseudo;
+                            $_SESSION['user']['inscription'] = $userInfo->inscription;
+
+                            header("Location: index.php?url=profil");
+                        }
+                    }
+                }
+                
         }
+        require_once __DIR__ . '/../Views/login.php';
     } 
 
     public function profil(): void {
         require_once __DIR__ . '/../Views/profil.php';
+
         // vue profil.php (besoin user connecté)
     }
 

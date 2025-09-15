@@ -9,8 +9,14 @@ use PDOException;
 
 class User {
 
+    public int $id;
+    public string $email;
+    public string $password;
+    public string $pseudo;
+    public string $inscription;
+
     public function createUser( string $email, string $password, string $pseudo): bool {
-        error_log("createUser appelé");
+        // error_log("createUser appelé"); vérifie si on entre bien dans la fonction
         try {
             $pdo = Database::getConnection();
 
@@ -105,13 +111,43 @@ class User {
 
         } catch (PDOException $e) {
             return 'Error : ' . $e->getMessage();
-            // return false;
         }
     }
 
-    // public function findByEmail(string $email): ?array {
+    public function findByEmail(string $email): bool {
 
-    // }
+        try {
+            $pdo = Database::getConnection();
+
+            if (!$pdo) {
+                // si pas de connexion 
+                return false;
+            }
+
+            $sql = 'SELECT *  FROM `users` WHERE `u_email` = :email';
+
+            // on prépare la requête avant de l'éxecuter 
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+
+            // on exécute la requête
+            $stmt->execute();
+
+            // On recupère les données via un fetch() : se sera un objet
+            $user = $stmt->fetch(PDO::FETCH_OBJ);
+            // On hydrate notre objet avec les valeurs de User
+            $this->id = $user->u_id;
+            $this->email = $user->u_email;
+            $this->password = $user->u_password;
+            $this->pseudo = $user->u_username;
+            $this->inscription = $user->u_inscription;
+
+            return true;
+
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 
     // public function findById(int $id): ?array {
 

@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Formulaire</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <title>leboncoin, site de petites annonces</title>
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <h1 class="text-center py-4 bg-warning">Inscription </h1>
+    <h1 class="text-center py-4 font border-bottom">Inscription</h1>
 
     <main class="container py-4">
 
@@ -21,7 +23,7 @@
 
             <div class="col-6">
 
-                <form action="index.php?url=register" method="POST" novalidate>
+                <form action="index.php?url=register" method="POST">
 
                     <div class="mb-3">
                         <label for="lastname" class="form-label">Pseudo*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["pseudo"] ?? '' ?></span>
@@ -55,7 +57,7 @@
                             <a href="index.php?url=login" class="color1 a-none">Déjà inscrit ?</a>
                         </div>
                         <div>
-                            <button type="submit" class="color1 a-none">S'inscrire</button> 
+                            <button type="submit" class="color1 buttonStyle">S'inscrire</button> 
                         </div>
                     </div>
 

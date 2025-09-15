@@ -61,6 +61,16 @@ switch ($page) {
         $controller->show($id);
         break;
     
+    case 'welcome':
+
+        require_once __DIR__ . '/../src/Views/welcome.php';
+        break;
+        
+    case 'logout':
+
+        require_once __DIR__ . '/../src/Views/logout.php';
+        break;
+
     default:
         require_once __DIR__ . '/../src/Views/page404.php';
         break;

@@ -21,7 +21,7 @@ class Database {
             $connexion = new PDO ($dsn, $USER, $PASSWD);
             $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
-            echo "Connexion réussi";
+            // echo "Connexion réussi";
             return $connexion;
             
         } catch (PDOException $e) {

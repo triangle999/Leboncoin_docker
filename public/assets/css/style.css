@@ -18,3 +18,32 @@ li {
     font-style: normal;
     background-color: #EC5A13;
 }
+.imgWidth {
+    width: 20vw;
+}
+.navHeight {
+    height: 5vh;
+}
+.heightBanniere {
+    width: 60vw;
+    background-image: url(https://www.leboncoin.fr/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fadinsertion_banner.65cb671a.webp&w=1920&q=90);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.bgIMG {
+    background-color: #FFE9DE;
+}
+.bann-w {
+    width: 16vw;
+    height: 6vh;
+}
+.font-bann {
+    font-family: "Ubuntu", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+}
+.blue {
+    background-color: #E6F2FD;
+    display: inline;
+}
