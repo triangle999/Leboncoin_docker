@@ -47,3 +47,6 @@ li {
     background-color: #E6F2FD;
     display: inline;
 }
+.roundedCss {
+    border-radius: 100px;
+}

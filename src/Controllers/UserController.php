@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Annonce;
 use App\Models\User;
 
 class UserController {
@@ -151,13 +152,26 @@ class UserController {
     } 
 
     public function profil(): void {
+
+        if (isset($_SESSION['user'])) {
+            $userAnnonce = new Annonce;
+            $userAnnonce->findByUser($_SESSION['user']['id']);
+        } else {
+            header("Location : index.php?url=page404");
+        }
+
+        
+
         require_once __DIR__ . '/../Views/profil.php';
 
         // vue profil.php (besoin user connecté)
     }
 
     public function logout(): void {
+
+        unset($_SESSION['user']);
+        session_destroy();
+
         require_once __DIR__ . '/../Views/home.php';
-        // déconnexion + redirection
     }
 }

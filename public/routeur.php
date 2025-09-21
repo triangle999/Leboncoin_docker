@@ -70,6 +70,11 @@ switch ($page) {
 
         require_once __DIR__ . '/../src/Views/logout.php';
         break;
+        
+    case 'page404':
+
+        require_once __DIR__ . '/../src/Views/page404.php';
+        break;
 
     default:
         require_once __DIR__ . '/../src/Views/page404.php';

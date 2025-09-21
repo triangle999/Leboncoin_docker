@@ -145,11 +145,39 @@ class User {
             return true;
 
         } catch (PDOException $e) {
-            return false;
+            return 'Error : ' . $e->getMessage();
+            // return false
         }
     }
 
-    // public function findById(int $id): ?array {
+    public function findById(int $id): ?array {
 
-    // }
+        try {
+            $pdo = Database::getConnection();
+
+            if (!$pdo) {
+                false;
+            }
+
+            $sql = 'SELECT * FROM `users` WHERE `u_id` = :id LIMIT 1';
+            // on prépare la requête avant de l'executer 
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+            // on execute la requête
+            $stmt->execute();
+
+            // on récupère les données via un fetch !!!! ici ça sera un tableau 
+            $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $userById = $resultat; 
+            return $userById;
+
+
+        } catch (PDOException) {
+            false;
+        }
+
+    }
+    public function createFav ()
 }
