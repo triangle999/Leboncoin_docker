@@ -179,5 +179,4 @@ class User {
         }
 
     }
-    public function createFav ()
 }

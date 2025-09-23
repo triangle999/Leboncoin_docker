@@ -5,11 +5,13 @@
 use App\Controllers\AnnonceController;
 use App\Controllers\HomeController;
 use App\Controllers\UserController;
+use App\Models\Annonce;
 
 $url = $_GET['url'] ?? 'home';
 $arrayURL = explode('/', $url);
 $page = $arrayURL[0];
 $id = $arrayURL[1] ?? null;
+$userId = $arrayURL[2] ?? null;
 
 switch ($page) {
 
@@ -35,6 +37,12 @@ switch ($page) {
 
         $controller = new UserController; 
         $controller->profil();
+        break;
+
+    case 'delete':
+
+        $controller = new AnnonceController; 
+        $controller->delete($id);
         break;
 
     case 'logout':

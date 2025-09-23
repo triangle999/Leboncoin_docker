@@ -91,25 +91,19 @@ class UserController {
     }
 
     public function login(): void {
-     
-        // Création de regeX
-        $regName = "/^[a-zA-Zàèé\-]+$/";
 
         // Je ne lance qu'uniquement lorsqu'il y a un formulaire validée via la méthod POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // je créé un tableau d'erreurs vide car pas d'erreur
-            // $errors = [];
-            $_SESSION['errors'] = [];
+            $errors = [];
+            // $_SESSION['errors'] = [];
 
             if (isset($_POST["email"])) {
                 // on va vérifier si c'est vide
                 if (empty($_POST["email"])) {
                     // si c'est vide, je créé une erreur dans mon tableau
-                    $_SESSION['errors']['email'] = 'Mail obligatoire';
-                } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-                    // si mail non valide, on créé une erreur
-                    $_SESSION['errors']['email'] = 'Mail non valide';
+                    $errors['email'] = 'Mail obligatoire';
                 }
             }
 
@@ -117,16 +111,10 @@ class UserController {
                 // on va vérifier si c'est vide
                 if (empty($_POST["password"])) {
                     // si c'est vide, je créé une erreur dans mon tableau
-                    $_SESSION['errors']['password'] = 'Veuillez saisir votre mot de passe';
-                } else if (strlen($_POST['password']) < 8) {
-                    // si mot de passe inf à 8 alors on créé une erreur
-                    $_SESSION['errors']['password'] = 'Le mot de passe est inférieur au minimum requis'; 
-                } else if (!preg_match($regName, $_POST["password"])) {
-                    // si ça ne respecte pas la regeX
-                    $_SESSION['errors']['password'] = 'Caractère(s) non autorisé(s)';
-                }
+                    $errors['password'] = 'Veuillez saisir votre mot de passe';
+                } 
             }
-
+        
             if(empty($errors)){
                 
                 if (User::checkMail($_POST["email"])) {
@@ -143,6 +131,8 @@ class UserController {
                             $_SESSION['user']['inscription'] = $userInfo->inscription;
 
                             header("Location: index.php?url=profil");
+                        } else {
+                            $errors['password'] = 'Mot de passe ou Email incorrect';
                         }
                     }
                 }
@@ -156,11 +146,10 @@ class UserController {
         if (isset($_SESSION['user'])) {
             $userAnnonce = new Annonce;
             $userAnnonce->findByUser($_SESSION['user']['id']);
-        } else {
+
+        } else if (empty($_SESSION['user'])) {
             header("Location : index.php?url=page404");
         }
-
-        
 
         require_once __DIR__ . '/../Views/profil.php';
 

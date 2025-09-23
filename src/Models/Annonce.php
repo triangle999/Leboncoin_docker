@@ -90,10 +90,9 @@ class Annonce {
             $stmt->execute();
 
             // on récupère les données via un fetch !!!! ici ça sera un tableau 
-            $idAnnonce = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $idAnnonce = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            $_SESSION['idAnnonce'] = $idAnnonce;
-            return  $_SESSION['idAnnonce'];
+            return  $idAnnonce;
 
 
         } catch (PDOException) {
@@ -127,6 +126,36 @@ class Annonce {
 
         } catch (PDOException) {
             false;
+        }
+    }
+
+    public function delete (int $id) {
+
+        try {
+            $pdo = Database::getConnection();
+
+            if (!$pdo) {
+                false;
+            }
+            
+            $sql = 'DELETE FROM annonces WHERE u_id = :userId AND a_id = :id';
+
+            // on prépare la requête avant de l'executer 
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user']['id'], PDO::PARAM_STR);
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+            // on execute la requête
+            $stmt->execute();
+
+            // on récupère les données via un fetch !!!! ici ça sera un objet
+            return true;
+
+
+        } catch (PDOException) {
+            false;
+            echo 'pas supprimé';
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-header("Refresh:2; index.php?url=login.php")
+header("Refresh:2; index.php?url=login")
 ?>
 <!DOCTYPE html>
 <html lang="en">

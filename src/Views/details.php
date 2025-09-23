@@ -86,7 +86,7 @@
                         </div>
                         <div class="d-flex gap-5 justify-content-center my-3">
                             <a href="http://" class="a-none text-light p-2 bg-annonce rounded-5 w-25 text-center">Acheter</a>
-                            <a href="http://" class="a-none text-light p-2 btn btn-primary rounded-5 w-25 text-center" >contacter</a>
+                            <a href="http://" class="a-none text-light p-2 btn btn-primary font-style rounded-5 w-25 text-center" >Contacter</a>
                         </div>
                     </div>
                    

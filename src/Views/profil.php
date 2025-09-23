@@ -149,10 +149,13 @@
                                 </div>
                                 <div class="col border-start">
                                     <h6>Performance</h6>
-                                    <div class="d-flex flex-column">
+                                    <div class="d-flex flex-column gap-2 p-2">
                                         <div><i class="bi bi-eye"></i> 40</div>
                                         <div><i class="bi bi-heart"></i> 6</div>
                                         <div><i class="bi bi-chat-dots"></i> 5</div>
+                                        <form action="index.php?url=delete/<?= $info['a_id'] ?>" method="POST">
+                                            <button type="submit" class="btn btn-outline-danger">Supprimer</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

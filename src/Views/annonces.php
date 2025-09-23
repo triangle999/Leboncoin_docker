@@ -78,17 +78,16 @@
             </div>
 
         </div>
-
-            <div class="row px-5 mx-5 mb-2">
-                
+            <div class="row row-cols-4 row-cols-md-4 g-4">
+              
                 <?php foreach ($_SESSION['annonce'] as $info) {?>
-                    <div class="col-lg-3">
+                    <div class="col-3">
                 
                         <div class="card">
                             <a href="index.php?url=details/<?= $info['a_id'] ?>" class="a-none text-dark">
                                 <img src="uploads/<?= $info['u_id'] . '/' . $info['a_picture'] ?>" class="card-img-top img-fluid" alt="photo_error">
                                 <div class="card-body">
-                                    <p class="card-title d-inline overflow-hidden fs-6"><?= $info['a_description'] ?></p>
+                                    <p class="card-title d-inline overflow-hidden fs-6"><?= $info['a_title'] ?></p>
                                 </div>
                             </a>
                             <ul class="list-group list-group-flush">
@@ -102,12 +101,8 @@
                     </div>    
                 <? }?>
 
-            </div>    
+            </div> 
             
-        </div>
-
-      
-        
         </div>
 
     </div>

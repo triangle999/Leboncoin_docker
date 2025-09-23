@@ -20,12 +20,12 @@
                     <form action="index.php?url=login" method="POST">
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">Adresse mail*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $_SESSION["errors"]["email"] ?? '' ?></span>
+                            <label for="email" class="form-label">Adresse mail*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["email"] ?? '' ?></span>
                             <input type="email" class="form-control" id="email" name="email" value="<? $_POST['email'] ?? '' ?>">
                         </div>
 
                         <div class="mb-3">
-                            <label for="inputPassword5" class="form-label">Mot de passe*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $_SESSION["errors"]["password"] ?? '' ?></span>
+                            <label for="inputPassword5" class="form-label">Mot de passe*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["password"] ?? '' ?></span>
                             <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" name="password" value="<? $_POST['password'] ?? '' ?>">
                         </div> 
 

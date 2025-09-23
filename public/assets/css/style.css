@@ -18,6 +18,10 @@ li {
     font-style: normal;
     background-color: #EC5A13;
 }
+.font-style {
+    font-family: "Ubuntu", sans-serif;
+    font-style: normal;
+}
 .imgWidth {
     width: 20vw;
 }
