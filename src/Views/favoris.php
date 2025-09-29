@@ -75,7 +75,7 @@
                         <h3>Bonjour <?= $_SESSION['user']['pseudo'] ?> !</h3>
                     </div>
                     <div>
-                        <p>Mail : <?= $_SESSION['user']['email'] ?></p>
+                        <p>Mail : s<?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <div>
                         <p>Date d'inscription : <?= $_SESSION['user']['inscription'] ?></p>
@@ -124,58 +124,21 @@
                 </div>
             </div>
         </div>
-        <div class="row px-5 my-3 gap-3">
-
-            <div class="col">
-                <h2>Mes annonces</h2>
-                <div class="d-flex flex-column gap-3">
-                    <?php foreach ($_SESSION['userAnnonce'] as $info) { ?>
-
-                        <div class="border rounded">
-                            <div class="row">
-                                    <div class="col-lg-3">
-                                        <img class="img-fluid" src="uploads/<?= $info['u_id'] . '/' . $info['a_picture'] ?>" alt="blabla">
-                                    </div>
-                                    <div class="col-lg-7 p-3">
-                                        <a href="index.php?url=details/<?= $info['a_id'] ?>" class="a-none text-dark">
-                                            <div class="d-flex flex-column">
-                                                <div class="d-flex gap-1">
-                                                    <h5>
-                                                        <?= $info['a_title'] ?>
-                                                    </h5>
-                                                </div>
-                                                <div class="d-flex gap-1">
-                                                    <p>
-                                                        <?= $info['a_description'] ?>
-                                                    </p>
-                                                </div>
-                                                <div class="d-flex gap-1">
-                                                    <p>
-                                                        <?= $info['a_price'] ?> €
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                
-                                <div class="col border-start">
-                                    <h6>Performance</h6>
-                                    <div class="d-flex flex-column gap-2 p-2">
-                                        <div><i class="bi bi-eye"></i> 40</div>
-                                        <div><i class="bi bi-heart"></i> 6</div>
-                                        <div><i class="bi bi-chat-dots"></i> 5</div>
-                                        <a href="index.php?url=edit/<?= $info['a_id'] ?>" class="a-none btn btn-outline-warning btn-sm">Modifier</a>
-                                        <form action="index.php?url=delete/<?= $info['a_id'] ?>" method="POST">
-                                            <button type="submit" class="btn btn-outline-danger">Supprimer</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+        
+            <div class="row">
+                <h2>Mes Favoris</h2>
+                <div class="card-group">
+                    <?php foreach ($_SESSION['userFavoris'] as $info) {?>
+                    <div class="card">
+                        <img src="uploads/<?= $info['u_id'] . '/' . $info['a_picture'] ?>" class="card-img-top img-fluid" alt="photo_error">
+                        <div class="card-body">
+                        <h5 class="card-title"><?= $info['a_title'] ?></h5>
+                        <p class="card-text"><?= $info['a_description'] ?></p>
+                        <p class="card-text"><small class="text-body-secondary"><?= $info['a_publication'] ?></small></p>
                         </div>
-
-                    <? } ?>
+                    </div>
+                    <?}?>
                 </div>
-
             </div>
 
             <div class="d-flex justify-content-center">

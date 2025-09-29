@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 use PDO;
 use PDOException;
 
-class Annonce {
+class Annonce
+{
 
     public int $aId;
     public string $titre;
@@ -15,7 +16,8 @@ class Annonce {
     public int $userId;
     public string $inscription;
 
-    public function createAnnonce(string $titre, string $description, float $prix, ?string $photo, int $userId): bool {
+    public function createAnnonce(string $titre, string $description, float $prix, ?string $photo, int $userId): bool
+    {
 
         try {
             $pdo = Database::getConnection();
@@ -35,15 +37,14 @@ class Annonce {
             $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
 
             return $stmt->execute();
-
         } catch (PDOException $e) {
             return 'Error : ' . $e->getMessage();
             // return false
         }
-
     }
 
-    public function findAll(): array {
+    public function findAll(): array
+    {
 
         try {
             $pdo = Database::getConnection();
@@ -65,15 +66,15 @@ class Annonce {
 
             $_SESSION['annonce'] = $annonce;
             return $_SESSION['annonce'];
-
         } catch (PDOException) {
             false;
         }
     }
 
-    public function findById(int $id): ?array {
-        
-        
+    public function findById(int $id): ?array
+    {
+
+
         try {
             $pdo = Database::getConnection();
 
@@ -91,16 +92,15 @@ class Annonce {
 
             // on récupère les données via un fetch !!!! ici ça sera un tableau 
             $idAnnonce = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             return  $idAnnonce;
-
-
         } catch (PDOException) {
             false;
         }
     }
 
-    public function findByUser(int $userId): array {
+    public function findByUser(int $userId): array
+    {
 
         try {
             $pdo = Database::getConnection();
@@ -122,22 +122,22 @@ class Annonce {
 
             $_SESSION['userAnnonce'] = $userAnnonce;
             return  $_SESSION['userAnnonce'];
-
-
         } catch (PDOException) {
             false;
         }
     }
 
-    public function delete (int $id) {
-
+    public function delete(int $id): bool
+    {
+        // var_dump($id);
         try {
             $pdo = Database::getConnection();
 
             if (!$pdo) {
-                false;
+                return false;
+                // echo 'marche pas';
             }
-            
+
             $sql = 'DELETE FROM annonces WHERE u_id = :userId AND a_id = :id';
 
             // on prépare la requête avant de l'executer 
@@ -148,16 +148,45 @@ class Annonce {
 
             // on execute la requête
             $stmt->execute();
+            // echo 'ça marche';
+
+            return true;
+        } catch (PDOException $e) {
+            echo 'Error : ' . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function edit(int $id, string $titre, string $description, float $prix, ?string $photo): bool
+    {
+
+        try {
+            $pdo = Database::getConnection();
+
+            if (!$pdo) {
+                false;
+            }
+
+            $sql = 'UPDATE annonces SET a_title = :titre, a_description = :descriptionArticle, a_price = :prix, a_picture = :imgArticle WHERE u_id = :userId AND a_id = :id';
+
+            // on prépare la requête avant de l'executer 
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user']['id'], PDO::PARAM_STR);
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->bindValue(':titre', $_POST["titre"], PDO::PARAM_STR);
+            $stmt->bindValue(':descriptionArticle', $_POST["descriptionArticle"], PDO::PARAM_STR);
+            $stmt->bindValue(':prix', $_POST["prix"], PDO::PARAM_STR);
+            $stmt->bindValue('imgArticle', $photo, PDO::PARAM_STR);
+
+            // on execute la requête
+            $stmt->execute();
 
             // on récupère les données via un fetch !!!! ici ça sera un objet
             return true;
-
-
-        } catch (PDOException) {
-            false;
-            echo 'pas supprimé';
+        } catch (PDOException $e) {
+            echo 'Error : ' . $e->getMessage();
+            return false;
         }
     }
 }
-
-

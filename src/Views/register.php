@@ -39,7 +39,7 @@
                         <label for="inputPassword5" class="form-label">Mot de passe*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["password"] ?? '' ?></span>
                             <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" name="password" value="<? $_POST['password'] ?? '' ?>">
                             <div id="passwordHelpBlock" class="form-text">
-                                Your password must be 8-14 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                                Le mot de passe doit être compris entre 8 et 14 caractères, contenant des lettres et des nombres et ne pas contenir d'espace, de caractère spécial, ou d'émoji.
                             </div>
                     </div>             
                     <div class="mb-3">

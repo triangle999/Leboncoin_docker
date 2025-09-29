@@ -13,8 +13,8 @@
     <link rel="shortcut icon" href="assets/img/lebon.png" type="image/x-icon">
 </head>
 <body>
-    
-    <main class="container">
+    <div class="container">
+
         <nav class="navbar navbar-expand-lg mb-3 px-5 p-3 border-bottom">
 
             <div class="container-fluid">
@@ -60,43 +60,72 @@
             </div>
 
         </nav>
-        <h1 class="text-center">Détails</h1>
-        <div class="row mx-5 my-5">
-                
-            <div class="col">
-                <img src="uploads/<?= $detail['u_id'] . '/' . $detail['a_picture'] ?>" class="img-fluid rounded" alt="photo_error">
+
+        <div class="row px-5">
+
+            <div class="col-lg-7 mt-4">
+                <div class="border rounded px-5 d-flex flex-column">
+                    <div>
+                        <h3><?= $_SESSION['user']['pseudo'] ?></h3>
+                    </div>    
+                    <div>
+                        <p><?= $_SESSION['user']['email'] ?></p>
+                    </div>
+                    <div>
+                       <p><?= $_SESSION['user']['inscription'] ?></p> 
+                    </div>
+                </div>
             </div>
-            <div class="col gap-4 shadow rounded-3 p-4">
-                <div class="d-flex flex-column">
-                    <div>
-                        <h6><?= $detail['a_title'] ?> </h6> 
-                        Date de publication : <?= $detail['a_publication'] ?>
-                    </div>
-                    <div class="my-2">
-                        <?= $detail['a_price'] ?> €
-                    </div>
-                    <div class="my-2">
-                        <?= $detail['a_description'] ?>
-                    </div>
+            <div class="col-lg-4 mt-4 border rounded">
+                <div class="text-center">
+                    <h5 class="m-0">Porte-monnaie</h5><br>
+                    <p class="m-0">0 €</p><br>
                 </div>
-                <div class="d-flex flex-column">
-                    <div>
-                        <h6>Vendu par <?= $detail['u_username'] ?></h6> 
-                    </div>
-                    <div class="d-flex gap-5 justify-content-center my-3">
-                        <a href="http://" class="a-none text-light p-2 bg-annonce rounded-5 w-25 text-center">Acheter</a>
-                        <a href="http://" class="a-none text-light p-2 btn btn-primary font-style rounded-5 w-25 text-center" >Contacter</a>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <a href="index.php?url=add/<?= $detail['a_id'] ?>" class="a-none"><i class="bi bi-heart"></i></a>
-                    <a href="index.php?url=remove/<?= $detail['a_id'] ?>" class="a-none"><i class="bi bi-heart-fill"></i></a>
-                </div>
-                
             </div>
 
         </div>
-    </main>
+
+        <div class="row px-5 my-3 mx-1">
+            <div class="col-6 border p-3">
+                <form action="index.php?url=edit/<?= $annonce['a_id'] ?>" method="POST" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Titre de l'article*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["titre"] ?? '' ?></span>
+                        <input type="text" class="form-control" id="titre" name="titre" value="<?= $annonce['a_title'] ?? $_POST['titre'] ?>">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description de l'article*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["descriptionArticle"] ?? '' ?></span>
+                        <textarea class="form-control" id="descriptionArticle" rows="3" name="descriptionArticle"><?= $annonce['a_description'] ?? $_POST['descriptionArticle'] ?></textarea>
+                    </div>
+                    <div>
+                        <label for="exampleFormControlTextarea1" class="form-label">Prix*</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["prix"] ?? '' ?></span>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">€*</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="prix" id="prix" value="<?= $annonce['a_price'] ?? $_POST['prix'] ?>">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Image de l'article</label><span class="ms-2 text-danger fst-italic fw-light"><?= $errors["imgArticle"] ?? '' ?></span>
+                        <input class="form-control" type="file" id="imgArticle" name="imgArticle" value="<?= $_POST['imgArticle'] ?? $annonce['a_picture'] ?>">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary bg-annonce">Modifier</button>
+                </form>
+            </div>
+
+            <div class="col-6 d-flex justify-content-center align-items-center">
+                <div class="row">
+                    <div class="mb-1">
+                        <img class="img-fluid rounded" src="uploads/<?= $_SESSION['user']['id'] . '/' . $annonce['a_picture'] ?>" alt="blabla">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
