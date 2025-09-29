@@ -106,6 +106,7 @@ class AnnonceController
                 $imageNull = 'default.jpg';
                 $newArticle = new Annonce;
 
+                 $fileExtension = strtolower(pathinfo($_FILES['imgArticle']['name'], PATHINFO_EXTENSION));
                 // on créé des lettres randoms pour changer le nom de l'image et la rendre unique (en cours...)
                 $origine = $_FILES['imgArticle']['tmp_name'];
                 // on change le nom de l'image (en tout cas j'essaye)

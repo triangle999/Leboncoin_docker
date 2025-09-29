@@ -1,3 +1,7 @@
+<?
+var_dump($_SESSION['userFavoris'])
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -75,7 +79,7 @@
                         <h3>Bonjour <?= $_SESSION['user']['pseudo'] ?> !</h3>
                     </div>
                     <div>
-                        <p>Mail : s<?= $_SESSION['user']['email'] ?></p>
+                        <p>Mail : <?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <div>
                         <p>Date d'inscription : <?= $_SESSION['user']['inscription'] ?></p>
